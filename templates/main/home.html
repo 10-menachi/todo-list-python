@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load tz %}
+
+{% block title %} Homepage {% endblock %}
+
+{% block content %}
+    <div class="d-flex flex-column justify-content-center align-items-center mt-5">
+        <h1>Add a Todo</h1>
+
+        <form method="post" action="add" class="row g-3">
+            {% csrf_token %}
+            <div class="col-auto">
+                <input type="text" class="form-control" name="content" id="inputPassword2" placeholder="Add an item">
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary mb-3">Add Item</button>
+            </div>
+        </form>
+        <ul class="list-group">
+            {% for todo in todos %}
+                <li class="d-flex flex-column justify-content-center align-items-center list-group-item">
+                {{ todo.text }}
+                <form method="get" action="delete/{{ todo.id }}/">
+                    <input class="w-100 list-group-item w-25 btn btn-danger p-2" type="submit" value="Delete">
+                </form>
+            </li>
+            {% endfor %}
+
+        </ul>
+    </div>
+{% endblock %}
