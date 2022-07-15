@@ -15,10 +15,19 @@
             <div class="navbar-header">
                 <a class="navbar-brand text-light" href="#">Todo List</a>
             </div>
-            <ul class="nav navbar-nav navbar-right d-flex flex-row">
-                <li class="nav-link"><a class="text-decoration-none text-light m-3" href="#">Sign Up</a></li>
-                <li class="nav-link"><a class="text-decoration-none text-light m-3" href="#">Login</a></li>
-            </ul>
+            {% if user.is_authenticated %}
+                <ul class="nav navbar-nav navbar-right d-flex flex-row">
+                    <li class="nav-link"><a class="text-decoration-none text-light m-3" href="#">Logged in as {{ user.username }}</a></li>
+                    <li class="nav-link"><a class="text-decoration-none text-light m-3" href="{% url 'logout' %}">Log out</a></li>
+                </ul>
+
+            {% else %}
+                <ul class="nav navbar-nav navbar-right d-flex flex-row">
+                    <li class="nav-link"><a class="text-decoration-none text-light m-3" href="#">Sign Up</a></li>
+                    <li class="nav-link"><a class="text-decoration-none text-light m-3" href="{% url 'login' %}">Login</a></li>
+                </ul>
+
+            {% endif %}
         </div>
     </nav>
     {% block content %}
